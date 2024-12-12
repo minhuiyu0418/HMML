@@ -41,12 +41,16 @@ for i in range (repeating):
         metrics={'outputs_classification': [tf.keras.metrics.AUC(name='auc'),"acc"]},
         loss_weights={'l2_layer_MRI':0.001,'l2_layer_PET':0.001,'outputs_classification':1,'outputs_regression_gds':1,'outputs_regression_mmse':0.01}
     )
+    
+    checkpoint_filepath = './'+run_time+'/{epoch:02d}-checkpoint'
+    model_checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_filepath, save_weights_only=True, monitor='loss', mode='min', save_best_only=False, save_freq='epoch')
 
     model.fit(
         iter(dataset.batch(batch_size)),
         epochs=epochs,
         batch_size = batch_size,
         steps_per_epoch=math.ceil(len_training_path/batch_size),
-        shuffle=True
+        shuffle=True,
+        callbacks=[model_checkpoint_cb]
     )
 
