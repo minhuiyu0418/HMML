@@ -35,6 +35,8 @@ def process_scan(path):
 
 
 def get_training_data_info():
+    '''1. read input images, label, and scores
+       2. check for the presence of PET images and using synthetic PET for the subjects that have missing PET'''
     
     zero_files = os.listdir('E:/Dataset/ADNI_1_and_2/ADNI_AD_CN/CN_orig_processed')
     one_files = os.listdir('E:/Dataset/ADNI_1_and_2/ADNI_AD_CN/AD_orig_processed')
@@ -115,8 +117,9 @@ def get_training_data_info():
     return FileName_Label_List
 
 
-# Control the label of each batch data to ensure that it contains both positive and negative label
 def create_file_list(FileName_Label_List,len_training_path,batch_size):
+    '''Control the label of each batch data to ensure that it contains both positive and negative label'''
+    
     np.random.shuffle(FileName_Label_List)
 
     zeros_index = np.where(FileName_Label_List[:,2]=='0')[0]
@@ -138,6 +141,8 @@ def create_file_list(FileName_Label_List,len_training_path,batch_size):
             
             
 def load_data(len_training_path,batch_size,epochs):
+    '''define data loaders'''
+
     FileName_Label_List = get_training_data_info()
     paired_files_all_epoches = create_file_list(FileName_Label_List,len_training_path,batch_size)
     for i in range (epochs-1):
