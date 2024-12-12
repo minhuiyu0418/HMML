@@ -20,3 +20,6 @@
   - Defining data loaders for training and evaluation.
 
 - `util.py`: Provides utility functions, such as checking for GPU availability and displaying GPU details.
+- `environment.yml`: Lists the Python packages and their specific versions required to run the project. Use the following command to install the dependencies:
+   ```bash
+   conda env create -n <env> -f environment.yml
