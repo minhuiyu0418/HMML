@@ -86,7 +86,6 @@ def get_training_data_info():
     train_gds_ADNI = []
 
 
-    # Define data loaders.
     for j in range (len(comined_MRI_subject)):
         flag = 0
         for i in range (len(data_MMSE)):
